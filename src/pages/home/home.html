@@ -10,7 +10,7 @@
   <form [formGroup]="connexion" (ngSubmit)="logForm()">
     <ion-item>
       <ion-label floating>Pseudo</ion-label>
-      <ion-input type="text" formControlName="pseudo"></ion-input>
+      <ion-input type="text" formControlName="pseudo" [(ngModel)]="pseudo"></ion-input>
     </ion-item>
 
     <button ion-button icon-left color="secondary" round type="submit" [disabled]="!connexion.valid">

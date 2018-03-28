@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Salon
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-list>
+  <ion-list-header>
+      Joueurs
+  </ion-list-header>
+  <ion-item *ngFor="let user of users">
+    <ion-label>{{user.pseudo}}</ion-label>w
+    <ion-toggle [checked]="user.ready"></ion-toggle>
+    <button ion-button color="danger" [block] icon-left>
+      <ion-icon name="close-circle"></ion-icon>
+      Quitter le salon
+    </button>
+  </ion-item>
+</ion-list>

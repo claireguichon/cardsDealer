@@ -1,7 +1,9 @@
+///<reference path="../../../node_modules/ionic-angular/navigation/nav-controller.d.ts"/>
 import { Component } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import { NavController } from 'ionic-angular';
+import {LoadingController, NavController} from 'ionic-angular';
+import {SalonPage} from "../salon/salon";
 
 @Component({
   selector: 'page-home',
@@ -10,42 +12,48 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
 
   connexion:FormGroup;
+  public pseudo: string;
 
-  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, private http : HttpClient) {
+  constructor(public navCtrl: NavController, public formBuilder: FormBuilder, private http : HttpClient, public loadingCtrl: LoadingController ) {
     this.connexion = this.formBuilder.group({
       pseudo: ['', Validators.compose([Validators.minLength(3), Validators.required])],
     });
   }
   logForm(){
-      const url = "http://localhost:1341/cardsdealer/linq/";
-
-    var data = {
-      pseudo : this.connexion.value,
-      ready : false
+    const url = "http://localhost:1341/cardsdealer/linq/";
+    const config = {headers:  {
+        'Access-Control-Allow-Headers' : 'Content-Type',
+        'Content-Type' : 'application/json',
+        'Connection' : 'close'
+      }
     };
 
-    const req = this.http.post(url, data)
-      .subscribe(
-        res => {
-          console.log("res"+res);
-        },
-        err => {
-          console.log("err"+err);
-        }
-      );
+    var data = JSON.stringify({
+      pseudo : this.pseudo,
+      ready : false
+    });
 
-    console.log("req"+req);
 
-    const req2 = this.http.get(url)
-      .subscribe(
-        res => {
-          console.log("res"+res);
-        },
-        err => {
-          console.log("err"+err);
-        }
-      );
+    this.http.post(url, data, config).toPromise().then();
 
-    console.log("req2"+req2);
+
+
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
+
+    setTimeout(() => {
+      loading.dismiss();
+    }, 2000);
+
+    
+
+
+    this.navCtrl.push(SalonPage).then();
+
+
+
   }
 }
