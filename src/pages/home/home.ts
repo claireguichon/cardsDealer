@@ -46,14 +46,8 @@ export class HomePage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2000);
-
-    
-
+    }, 10);
 
     this.navCtrl.push(SalonPage).then();
-
-
-
   }
 }

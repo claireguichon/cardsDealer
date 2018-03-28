@@ -13,9 +13,9 @@
   <ion-item *ngFor="let user of users">
     <ion-label>{{user.pseudo}}</ion-label>w
     <ion-toggle [checked]="user.ready"></ion-toggle>
-    <button ion-button color="danger" [block] icon-left>
-      <ion-icon name="close-circle"></ion-icon>
+    <button ion-button icon-end item-right color="danger" (click)="deleteUser(user.id)">
       Quitter le salon
+      <ion-icon name="close-circle"></ion-icon>
     </button>
   </ion-item>
 </ion-list>

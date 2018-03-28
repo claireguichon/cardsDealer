@@ -11,30 +11,37 @@ import {HttpClient} from '@angular/common/http';
 export class SalonPage {
 
   users:any;
+  url = "http://localhost:1341/cardsdealer/linq/";
+  config = {headers:  {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  };
 
   constructor(public navCtrl: NavController, private http : HttpClient) {
-    const url = "http://localhost:1341/cardsdealer/linq/";
-    const config = {headers:  {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    };
+    this.http.get(this.url, this.config).
+    subscribe((res: Response) => {
+      this.users=res;
+    });
+  }
 
-    var users = [{
-      pseudo:"Joalien",
-      ready:"false"
-    }, {
-      pseudo:"Clairounette",
-      ready:"true"
-    }];
+  ionViewDidLoad() {
+    this.http.get(this.url, this.config).
+    subscribe((res: Response) => {
+      this.users=res;
+    });
+  }
 
-    const req2 = this.http.get(url, config).
+  deleteUser(id){
+    console.log("destruction de l'user: "+id);
+    this.http.delete(this.url+"/"+id, this.config).
     subscribe((res: Response) => {
       this.users=res;
     });
 
-    console.log(users);
-
-
+    this.http.get(this.url, this.config).
+    subscribe((res: Response) => {
+      this.users=res;
+    });
   }
 
 }
