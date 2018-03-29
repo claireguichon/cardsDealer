@@ -35,19 +35,6 @@ export class HomePage {
 
 
     this.http.post(url, data, config).toPromise().then();
-
-
-
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-
-    loading.present();
-
-    setTimeout(() => {
-      loading.dismiss();
-    }, 10);
-
     this.navCtrl.push(SalonPage).then();
   }
 }

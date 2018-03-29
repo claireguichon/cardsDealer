@@ -18,10 +18,6 @@ export class SalonPage {
   };
 
   constructor(public navCtrl: NavController, private http : HttpClient) {
-    this.http.get(this.url, this.config).
-    subscribe((res: Response) => {
-      this.users=res;
-    });
   }
 
   ionViewDidLoad() {
@@ -43,5 +39,7 @@ export class SalonPage {
       this.users=res;
     });
   }
+
+
 
 }
